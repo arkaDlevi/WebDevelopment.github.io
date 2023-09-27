@@ -1,0 +1,33 @@
+const express = require("express")
+const path = require("path")
+const app = express();
+const port = 80;
+//For serving static files
+app.use('/static', express.static('static'))
+
+//set the tempplate engine as pug
+app.set('view engine','pug')
+
+//set the views directory
+app.set('views', path.join(__dirname,'views'))
+
+//Out pug demo endpoint
+app.get("/demo", (req,res)=>{
+    res.status(200).render('demo', { title: 'Using Pug', message: 'Learning to use pug' })
+})
+
+app.get("/", (req,res)=>{
+    res.status(250).send("This is first express app")
+});
+app.get("/about",(req,res)=>{
+    res.send("This is about page of first express app");
+});
+app.post("/about",(req,res)=>{
+    res.send("This is post request page of about");
+});
+app.get("/this",(req,res)=>{
+    res.status(404).send("404 error");
+});
+app.listen(port, ()=>{
+    console.log(`Appplication started successfully on ${port}`)
+})
